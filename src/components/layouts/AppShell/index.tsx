@@ -6,7 +6,7 @@ interface AppShellProps {
     children: ReactNode;
 }
 
-const disabledNavBar = ["/auth/login", "/auth/register"];
+const disabledNavBar = ["/auth/login", "/auth/register", "/404"];
 
 const AppShell = (props: AppShellProps) => {
     const { children } = props;
