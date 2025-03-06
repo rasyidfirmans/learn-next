@@ -1,5 +1,5 @@
-import Label from "./label";
-import Input from "./input";
+import Label from "./Label";
+import Input from "./Input";
 
 interface InputFormProps {
     htmlFor: string;
