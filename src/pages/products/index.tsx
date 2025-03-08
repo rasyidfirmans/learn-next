@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import fetcher from "@/utilities/swr/fetcher";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import useSWR from "swr";
 
 type productType = {
     id: string;
@@ -11,9 +14,8 @@ type productType = {
 
 const ProductPage = () => {
     const router = useRouter();
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [isLogin, setIsLogin] = useState(true);
-    const [products, setProducts] = useState([]);
+    // const [products, setProducts] = useState([]);
 
     useEffect(() => {
         if (!isLogin) {
@@ -22,20 +24,22 @@ const ProductPage = () => {
     }, [isLogin, router]);
 
     // fetching data to API
-    useEffect(() => {
-        const fetchData = async () => {
-            await fetch("/api/products").then(response => response.json()).then(response => setProducts(response.data));
-        };
-        fetchData();
-    }, []);
+    const { data, error, isLoading } = useSWR(`/api/products`, fetcher);
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         await fetch("/api/products").then(response => response.json()).then(response => setProducts(response.data));
+    //     };
+    //     fetchData();
+    // }, []);
 
     return (
         <>
             <h1 className="font-bold text-4xl text-center my-8">Our Product</h1>
             <div>
                 <ul className="mx-10 flex flex-wrap gap-15 justify-center">
-                    {products.length > 0 ? 
-                        products.map((product: productType) => (
+                    {data ? 
+                        data.data.map((product: productType) => (
                             <li key={product.id} className="w-1/5">
                                 <div>
                                     <img src={product.image} alt={product.name} className="w-full"/>
