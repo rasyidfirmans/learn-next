@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import fetcher from "@/utilities/swr/fetcher";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
@@ -40,14 +41,14 @@ const ProductPage = () => {
                 <ul className="mx-10 flex flex-wrap gap-15 justify-center">
                     {data ? 
                         data.data.map((product: productType) => (
-                            <li key={product.id} className="w-1/5">
+                            <Link key={product.id} href={`/products/${product.id}`} className="w-1/5">
                                 <div>
                                     <img src={product.image} alt={product.name} className="w-full"/>
                                     <h2 className="font-bold text-xl mt-5">{product.name}</h2>
                                     <p className="text-slate-600">{product.category}</p>
                                     <p className="mt-3 text-xl font-bold">{product.price.toLocaleString("id-ID", { style: "currency", currency: "IDR" })}</p>
                                 </div>
-                            </li>
+                            </Link>
                         )) : (
                             [...Array(4)].map((_, index) => (
                                 <li key={index} className="w-1/5">
